@@ -1,0 +1,9 @@
+{
+  "mcpServers": {
+    "gemini-mcp": {
+      "command": "/Users/hc/mcp_1018/.venv/bin/python", 
+      "args": ["/Users/hc/mcp_1018/simple_server.py"],
+      "cwd": "/Users/hc/mcp_1018"
+    }
+  }
+}

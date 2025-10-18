@@ -1,0 +1,103 @@
+{
+  "name": "gemini-mcp-copilot",
+  "displayName": "Gemini MCP Copilot",
+  "description": "Integrate Gemini MCP Server with VS Code",
+  "version": "1.0.0",
+  "engines": {
+    "vscode": "^1.85.0"
+  },
+  "categories": [
+    "AI",
+    "Other"
+  ],
+  "main": "./out/extension.js",
+  "contributes": {
+    "commands": [
+      {
+        "command": "gemini-mcp.startServer",
+        "title": "Start Gemini MCP Server"
+      },
+      {
+        "command": "gemini-mcp.stopServer",
+        "title": "Stop Gemini MCP Server"
+      },
+      {
+        "command": "gemini-mcp.chat",
+        "title": "Chat with Gemini"
+      },
+      {
+        "command": "gemini-mcp.generateCode",
+        "title": "Generate Code with Gemini"
+      },
+      {
+        "command": "gemini-mcp.explainCode",
+        "title": "Explain Selected Code"
+      },
+      {
+        "command": "gemini-mcp.refactorCode",
+        "title": "Refactor Selected Code"
+      }
+    ],
+    "menus": {
+      "editor/context": [
+        {
+          "command": "gemini-mcp.explainCode",
+          "when": "editorHasSelection",
+          "group": "1_modification"
+        },
+        {
+          "command": "gemini-mcp.refactorCode",
+          "when": "editorHasSelection",
+          "group": "1_modification"
+        }
+      ],
+      "commandPalette": [
+        {
+          "command": "gemini-mcp.startServer"
+        },
+        {
+          "command": "gemini-mcp.stopServer"
+        },
+        {
+          "command": "gemini-mcp.chat"
+        },
+        {
+          "command": "gemini-mcp.generateCode"
+        }
+      ]
+    },
+    "configuration": {
+      "title": "Gemini MCP",
+      "properties": {
+        "gemini-mcp.apiKey": {
+          "type": "string",
+          "default": "",
+          "description": "Your Gemini API Key"
+        },
+        "gemini-mcp.serverPath": {
+          "type": "string",
+          "default": "",
+          "description": "Path to MCP server script"
+        },
+        "gemini-mcp.autoStart": {
+          "type": "boolean",
+          "default": true,
+          "description": "Auto start MCP server when VS Code opens"
+        }
+      }
+    }
+  },
+  "scripts": {
+    "vscode:prepublish": "npm run compile",
+    "compile": "tsc -p ./",
+    "watch": "tsc -watch -p ./"
+  },
+  "devDependencies": {
+    "@types/vscode": "^1.85.0",
+    "@types/node": "^18.x",
+    "typescript": "^5.2.2"
+  },
+  "dependencies": {
+    "axios": "^1.6.0"
+  }
+}

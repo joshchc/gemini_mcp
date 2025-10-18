@@ -2,6 +2,55 @@
 
 一個基於 Google Gemini API 的 Model Context Protocol (MCP) 伺服器，提供多種AI功能插件。
 
+## 🚀 快速開始
+
+### 1. 啟動服務
+```bash
+cd /Users/hc/mcp_1018
+source .venv/bin/activate
+export GEMINI_API_KEY='您的API金鑰'
+python http_api_server.py
+```
+
+### 2. 檢查服務狀態
+```bash
+curl http://127.0.0.1:8000/
+```
+
+## 💡 使用方式
+
+### 命令行工具 (推薦)
+```bash
+# 翻譯
+./mcp_cli.sh translate "Hello World"
+
+# 程式碼生成
+./mcp_cli.sh code "創建一個 Flask 應用" python
+
+# 文本摘要
+./mcp_cli.sh summarize "長篇文章內容..."
+
+# 檢查狀態
+./mcp_cli.sh status
+```
+
+### 互動式選單 (新手友好)
+```bash
+./interactive_menu.sh
+```
+
+### Python 客戶端 (程式整合)
+```python
+from gemini_mcp_client import GeminiMCPClient
+
+client = GeminiMCPClient()
+result = client.translate("Hello World", "zh-tw")
+code = client.generate_code("創建一個 REST API", "python")
+```
+
+### VS Code 整合 (開發使用)
+按 `Cmd+Shift+P` → "Tasks: Run Task" → 選擇 MCP 相關任務
+
 ## 功能特色
 
 ### 🎯 核心功能

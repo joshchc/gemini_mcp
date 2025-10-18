@@ -7,6 +7,10 @@ import logging
 from typing import List, Dict, Any, Optional
 import google.generativeai as genai
 from google.generativeai.types import HarmCategory, HarmBlockThreshold
+from dotenv import load_dotenv
+
+# 載入環境變數
+load_dotenv()
 
 logger = logging.getLogger(__name__)
 

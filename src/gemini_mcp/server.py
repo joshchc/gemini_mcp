@@ -8,15 +8,10 @@ import os
 from typing import Any, Sequence
 
 from mcp.server import Server
-from mcp.server.models import InitializationOptions
 from mcp.server.stdio import stdio_server
 from mcp.types import (
-    Resource,
     Tool,
     TextContent,
-    ImageContent,
-    EmbeddedResource,
-    LoggingLevel
 )
 
 from .gemini_client import GeminiClient
@@ -131,7 +126,7 @@ class GeminiMCPServer:
             return tools
             
         @self.server.call_tool()
-        async def handle_call_tool(name: str, arguments: dict[str, Any]) -> Sequence[TextContent | ImageContent | EmbeddedResource]:
+        async def handle_call_tool(name: str, arguments: dict[str, Any]) -> Sequence[TextContent]:
             """Handle tool calls"""
             try:
                 # Core tools
@@ -170,34 +165,16 @@ class GeminiMCPServer:
                 )]
                 
         @self.server.list_resources()
-        async def handle_list_resources() -> list[Resource]:
+        async def handle_list_resources() -> list[dict]:
             """List available resources"""
-            resources = []
-            
-            # Add plugin resources
-            for plugin in self.plugins.values():
-                resources.extend(await plugin.get_resources())
-                
-            return resources
+            return []
             
     async def run(self):
         """Run the server"""
         await self.initialize()
         
         async with stdio_server() as (read_stream, write_stream):
-            await self.server.run(
-                read_stream,
-                write_stream,
-                InitializationOptions(
-                    server_name="gemini-mcp",
-                    server_version="1.0.0",
-                    capabilities=self.server.get_capabilities(
-                        notification=True,
-                        tools=True,
-                        resources=True
-                    )
-                )
-            )
+            await self.server.run(read_stream, write_stream)
 
 
 async def main():
